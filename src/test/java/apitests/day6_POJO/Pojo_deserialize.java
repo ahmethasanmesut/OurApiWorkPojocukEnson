@@ -1,7 +1,6 @@
 package apitests.day6_POJO;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -27,7 +26,7 @@ public class Pojo_deserialize {
         //JSON to POJO --> de serialize to java custom class
         //json to our spartan class obj
 
-        spartan spartan15 = response.body().as(spartan.class);
+        Spartan spartan15 = response.body().as(Spartan.class);
 
         System.out.println(spartan15);
 
@@ -73,13 +72,13 @@ public class Pojo_deserialize {
         Map <String, Object> map = gson.fromJson(myJsonData, Map.class);
         System.out.println(map);
 
-        spartan spartan15 = gson.fromJson(myJsonData, spartan.class);
+        Spartan spartan15 = gson.fromJson(myJsonData, Spartan.class);
         System.out.println(spartan15);
 
         //-----------SERIALIZATION---------------
         //JAVA Collection or POJO to JSON
 
-        spartan spartaneu = new spartan(200,"Mike","male",12123123);
+        Spartan spartaneu = new Spartan(200,"Mike","male",12123123);
 
         String jsonspartaneu = gson.toJson(spartaneu);
         System.out.println("jsonspartaneu = " + jsonspartaneu);

@@ -2,7 +2,6 @@ package apitests.day6_POJO;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utilities.ConfigurationReader;
@@ -119,7 +118,7 @@ public class PostRequestDemo {   //day7
                 .when().get("mackarooapilink");
        String randomName =  response.path("name");
 
-        spartan spartaneu = new spartan();
+        Spartan spartaneu = new Spartan();
 
         spartaneu.setName("MikeSmith");
         spartaneu.setGender("Male");
@@ -148,7 +147,7 @@ public class PostRequestDemo {   //day7
     @Test
     public void PostNewSpartan4(){
 
-        spartan spartaneu = new spartan();
+        Spartan spartaneu = new Spartan();
 
         spartaneu.setName("MikeSmith");
         spartaneu.setGender("Male");

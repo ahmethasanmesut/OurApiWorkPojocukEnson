@@ -9,20 +9,20 @@ package apitests.day6_POJO;
     }
  */
 
-public class spartan {
+public class Spartan {
     private int id;
     private String name;
     private String gender;
     private long phone;
 
-    public spartan(int id, String name, String gender, long phone) {
+    public Spartan(int id, String name, String gender, long phone) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.phone = phone;
     }
 
-    public spartan(){}
+    public Spartan(){}
 
     public int getId() {
         return id;
