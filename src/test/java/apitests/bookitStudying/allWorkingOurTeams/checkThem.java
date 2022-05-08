@@ -56,6 +56,25 @@ public class checkThem {
         System.out.println("names = " + names);
 
     }
+    @Test
+    public void test3(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .header("Authorization", finalToken)
+                .when().get("/api/teams");
+        List<Map<String,Object>> allList = response.as(List.class);
+        System.out.println("allList.get(2) = " + allList.get(2));
+
+        List<Map<String,Object>> thirdInfo = (List<Map<String, Object>>) allList.get(2).get("members");
+        System.out.println("thirdInfo.get(1).get(\"lastName\") = " + thirdInfo.get(1).get("lastName"));
+
+        System.out.println("allList.get(2).get(\"id\") = " + allList.get(2).get("id"));
+           List<Object> firstNames = new ArrayList<>();
+        for (int i = 0; i < thirdInfo.size(); i++) {
+             firstNames.add(thirdInfo.get(i).get("firstName"));
+
+        }
+        System.out.println("firstNames = " + firstNames);
+    }
 
 
 }
