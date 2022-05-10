@@ -37,6 +37,7 @@ public class hrAttraction {
             String[] str = href.split("/");
             System.out.println("Arrays.toString(str) = " + Arrays.toString(str));
             int id = Integer.parseInt(str[str.length - 1]);
+            System.out.println("id = " + id);
             int regionId = allRego.getItems().get(i).getregion_id();
 
             Assert.assertEquals("Not True",id,regionId);
