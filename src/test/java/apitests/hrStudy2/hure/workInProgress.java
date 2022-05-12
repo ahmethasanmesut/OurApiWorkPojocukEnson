@@ -8,7 +8,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.ConfigurationReader;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.baseURI;
 
@@ -37,7 +40,9 @@ public class workInProgress {
         Assert.assertEquals(expNumber,actNumber);
 
     }
-    public void testListandMap(){
+    @Test
+    public void testListAndMap(){
+
 
     }
 }
