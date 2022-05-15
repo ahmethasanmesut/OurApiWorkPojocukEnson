@@ -574,11 +574,21 @@ public class workInProgress {
         Object rel = links.get(0).get("rel");
         System.out.println("rel = " + rel);
 
+        System.out.println("generalMap.get(\"hasMore\") = " + generalMap.get("hasMore"));
+
 
     }
     @Test
-    public void test3(){
+    public void testLinks(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get("/employees");
 
+        Map generalTable = response.body().as(Map.class);
+
+        List<Map<String,Object>> links = (List<Map<String,Object>>) generalTable.get("links");
+
+        Object relotivo = links.get(2).get("rel");
+        System.out.println("relotivo = " + relotivo);
 
     }
 
