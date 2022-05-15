@@ -570,6 +570,9 @@ public class workInProgress {
         System.out.println("commission_pct = " + actCommission_pct);
         String expCommission_pct = null;
         Assert.assertEquals(expCommission_pct,actCommission_pct);
+        List<Map<String,Object>> links = (List<Map<String, Object>>) generalMap.get("links");
+        Object rel = links.get(0).get("rel");
+        System.out.println("rel = " + rel);
 
 
     }
