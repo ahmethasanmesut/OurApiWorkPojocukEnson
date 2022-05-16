@@ -1,9 +1,10 @@
 package apitests.hrStudy2.hure;
 
-import io.restassured.RestAssured;
+import static io.restassured.RestAssured.*;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class workInProgress {
     }
     @Test
     public void test1(){
-        Response response = RestAssured.given().accept(ContentType.JSON)
+        Response response = given().accept(ContentType.JSON)
                 .when().get("/employees");
         PojoListKarisik pojoList = response.body().as(PojoListKarisik.class);
         String hrefAct = pojoList.getItems().get(5).getLinks().get(0).getHref();
@@ -45,7 +46,7 @@ public class workInProgress {
     public void testPrettyPrint(){
        //check all manager_id at item list
         //find our manager_id == null.
-        Response response = RestAssured.given().accept(ContentType.XML)
+        Response response = given().accept(ContentType.XML)
                 .when().get("/employees");
         String actMap = response.body().prettyPrint();
 
@@ -562,7 +563,7 @@ public class workInProgress {
     }
     @Test
     public void ListMap(){
-        Response response = RestAssured.given().accept(ContentType.JSON)
+        Response response = given().accept(ContentType.JSON)
                 .when().get("/employees");
         Map generalMap = response.body().as(Map.class);
         List<Map<String,Object>> items = (List<Map<String, Object>>) generalMap.get("items");
@@ -580,7 +581,7 @@ public class workInProgress {
     }
     @Test
     public void testLinks(){
-        Response response = RestAssured.given().accept(ContentType.JSON)
+        Response response = given().accept(ContentType.JSON)
                 .when().get("/employees");
 
         Map generalTable = response.body().as(Map.class);
@@ -590,6 +591,65 @@ public class workInProgress {
         Object relotivo = links.get(2).get("rel");
         System.out.println("relotivo = " + relotivo);
 
+    }
+    @Test
+    public void testimprove(){
+        Response response = given().accept(ContentType.JSON)
+                .when().get("/employees");
+         Map genTable = response.body().as(Map.class);
+        List<Map<String,Object>> links =  (List<Map<String,Object>>) genTable.get("links");
+        Object href = links.get(4).get("href");
+        System.out.println("href = " + href);
+
+
+
+        List<Map<String,Object>> items = (List<Map<String, Object>>) genTable.get("items");
+        int counter=0;
+        for (int i = 0; i < items.size(); i++) {
+            String actCommission_pct = (String) items.get(i).get("commission_pct");
+            if (actCommission_pct==null){
+                counter++;
+               System.out.println(items.get(i).get("commission_pct"));
+            }
+
+
+        }
+        System.out.println(counter);
+    }
+    @Test
+    public void pathTest(){
+        Response response = given().accept(ContentType.JSON)
+                .when().get("/employees");
+        List <Integer> salaries = response.body().path("items.salary");
+        System.out.println(salaries.get(4));
+        System.out.println("salaries = " + salaries);
+
+        Object hasMore = response.body().path("hasMore");
+        System.out.println(hasMore);
+
+        Object limit = response.body().path("limit");
+        System.out.println(limit);
+
+        JsonPath jsonPath = response.body().jsonPath();
+        Object limit1 = jsonPath.get("limit");
+        System.out.println("limit1 = " + limit1);
+
+        List<Object> list = jsonPath.getList("items.salary");
+        System.out.println("list = " + list);
+
+
+    }
+    @Test
+    public void hamchrest(){
+        given().accept(ContentType.JSON)
+                .and().pathParam("id",100)
+                .when().get("/employees/{id}")
+                .then().log().all().statusCode(200)
+                .and().contentType("application/json")
+                .and().body("email",Matchers.is("SKING"),
+                "salary",Matchers.is(2000),
+                        "last_name",Matchers.equalTo("King"))
+                .headers("Transfer-Encoding",Matchers.equalTo("chunked"));
     }
 
     }
