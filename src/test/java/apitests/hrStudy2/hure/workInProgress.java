@@ -648,7 +648,8 @@ public class workInProgress {
                 .and().contentType("application/json")
                 .and().body("email",Matchers.is("SKING"),
                 "salary",Matchers.is(2000),
-                        "last_name",Matchers.equalTo("King"))
+                        "last_name",Matchers.equalTo("King"),
+                        "links[1].rel",Matchers.equalTo("edit"))
                 .headers("Transfer-Encoding",Matchers.equalTo("chunked"));
     }
 
