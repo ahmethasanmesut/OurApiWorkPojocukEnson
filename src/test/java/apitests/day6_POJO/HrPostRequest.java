@@ -30,8 +30,6 @@ public class HrPostRequest {
                 .then().log().all()
                 .statusCode(201)
                 .body("region_id",is(10));
-
-
     }
 
 }

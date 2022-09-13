@@ -1,12 +1,15 @@
 package apitests;
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utilities.ConfigurationReader;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,6 +81,28 @@ public class jsonToJavaCollection {
         //print first region name
         System.out.println(itemList.get(0).get("region_name"));
 
+    }
+    @Test
+    public void asdasd(){
+        baseURI = "https://cybertek-reservation-api-qa3.herokuapp.com";
+        Map<String,String> params = new HashMap<>();
+        params.put("email","sbirdbj@fc2.com");
+        params.put("password","asenorval");
+        Response response = RestAssured.given().accept(ContentType.JSON).queryParams(params).when().get("/sign");
+
+        Assert.assertEquals(200,response.statusCode());
+        String token = response.path("accessToken");
+        System.out.println("token = " + token);
+        String bearerToken = "Bearer " + token;
+        System.out.println("bearerToken = " + bearerToken);
+
+        Response response1 = RestAssured.given().accept(ContentType.JSON)
+                .headers("Authorization", bearerToken).when().get("/api/conferences");
+
+        System.out.println("response1.statusCode() = " + response1.statusCode());
+
+        List<Map<String, Object>> listMap = response1.body().as(List.class);
+        System.out.println("listMap.get(0).get(\"room\") = " + listMap.get(0).get("room"));
     }
 
 }
