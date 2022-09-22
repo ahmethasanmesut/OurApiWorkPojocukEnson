@@ -567,6 +567,7 @@ public class workInProgress {
                 .when().get("/employees");
         Map generalMap = response.body().as(Map.class);
         List<Map<String,Object>> items = (List<Map<String, Object>>) generalMap.get("items");
+        System.out.println("items = " + items);
         String actCommission_pct = (String) items.get(0).get("commission_pct");
         System.out.println("commission_pct = " + actCommission_pct);
         String expCommission_pct = null;
